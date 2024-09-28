@@ -2,11 +2,20 @@ import streamlit as st
 import requests
 import vertexai
 from vertexai.generative_models import GenerativeModel
+import google.generativeai as genai
+import os
 
-vertexai.init(project="gen-ai-437006", location="us-central1")
-model = GenerativeModel(
-    "gemini-1.5-flash-002",
-    )
+
+gemini_api_key = st.secrets["gemini"]["api_key"]
+genai.configure(api_key=gemini_app_key)
+
+
+# vertexai.init(project="gen-ai-437006", location="us-central1")
+# model = GenerativeModel(
+#     "gemini-1.5-flash-002",
+#     )
+
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 
 st.title("ConsumeWise")
@@ -20,6 +29,6 @@ if st.button("Submit"):
         response = model.generate_content(
             "Analyse if the following ingredients cause any health issue : " + ingredients 
         )
-        st.write(response)
+        st.write(response.text)
 
 
