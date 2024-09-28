@@ -1,12 +1,25 @@
 import streamlit as st
 import requests
+import vertexai
+from vertexai.generative_models import GenerativeModel
+
+vertexai.init(project="gen-ai-437006", location="us-central1")
+model = GenerativeModel(
+    "gemini-1.5-flash-002",
+    )
+
 
 st.title("ConsumeWise")
 st.text(
     "This application has been created as part of the Gen AI Exchange Hackathon by Google"
 )
-
 ingredients = st.text_input("Ingredients")
 if st.button("Submit"):
     if ingredients:
         st.write("Ingredients given :\n",ingredients)
+        response = model.generate_content(
+            "Analyse if the following ingredients cause any health issue : " + ingredients 
+        )
+        st.write(response)
+
+
