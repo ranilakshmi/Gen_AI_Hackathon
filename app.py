@@ -7,6 +7,7 @@ import os
 
 
 gemini_api_key = st.secrets["gemini"]["api_key"]
+st.write(gemini_api_key)
 genai.configure(api_key=gemini_app_key)
 
 
